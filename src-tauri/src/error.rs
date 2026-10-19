@@ -4,14 +4,19 @@ use serde::Serialize;
 #[serde(tag = "kind", content = "message")]
 pub enum AppError {
     #[error("Erreur base de données : {0}")]
-    Db(String),
+    Database(String),
     #[error("{0}")]
     Validation(String),
+    #[error("Introuvable")]
+    NotFound,
 }
 
 impl From<sqlx::Error> for AppError {
     fn from(e: sqlx::Error) -> Self {
-        Self::Db(e.to_string())
+        match e {
+            sqlx::Error::RowNotFound => AppError::NotFound,
+            other => AppError::Database(other.to_string()),
+        }
     }
 }
 
