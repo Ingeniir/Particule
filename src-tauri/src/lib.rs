@@ -3,6 +3,7 @@ mod db;
 mod error;
 mod models;
 mod repositories;
+mod services;
 
 use tauri::Manager;
 use tauri_specta::{Builder, collect_commands};
@@ -13,6 +14,10 @@ pub fn run() {
         commands::courses::list_courses,
         commands::courses::create_course,
         commands::courses::delete_course,
+        commands::schedule::get_schedule_settings,
+        commands::schedule::save_ics_url,
+        commands::schedule::sync_schedule,
+        commands::schedule::get_events,
     ]);
 
     // Génère src/lib/bindings.ts à chaque lancement en dev
