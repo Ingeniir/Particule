@@ -10,7 +10,7 @@ export const commands = {
 };
 
 /* Types */
-export type AppError = { kind: "Db"; message: string } | { kind: "Validation"; message: string };
+export type AppError = { kind: "Database"; message: string } | { kind: "Validation"; message: string } | { kind: "NotFound" };
 
 export type Course = {
 	id: string,
